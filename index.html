@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRONPULSE GYM | Kuchingizni Kashf Eting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF4E00;
+            --secondary: #FFE600;
+            --dark: #0A0A0A;
+            --dark-gray: #1A1A1A;
+            --mid-gray: #2A2A2A;
+            --light-gray: #CCCCCC;
+            --white: #FFFFFF;
+            --accent-red: #FF0033;
+            --accent-orange: #FF6B00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 78, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 230, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--dark) 0%, var(--dark-gray) 100%);
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 5px 30px rgba(255, 78, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary), var(--accent-red));
+            color: var(--white);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 78, 0, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 78, 0, 0.6);
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 2px solid var(--mid-gray);
+            color: var(--light-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+
+        .hero::before {
+            content: 'TRAIN';
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 25rem;
+            color: rgba(255, 78, 0, 0.05);
+            transform: rotate(-15deg);
+            z-index: 0;
+            pointer-events: none;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(-15deg) translateY(0); }
+            50% { transform: rotate(-15deg) translateY(-30px); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 78, 0, 0.2);
+            border: 2px solid var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            animation: slideInDown 0.8s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 10vw, 8rem);
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--primary) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--light-gray);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: slideInLeft 1s ease-out 0.4s both;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent-red));
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(255, 78, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 78, 0, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--dark);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--dark-gray);
+            padding: 5rem 2rem;
+            position: relative;
+            border-top: 3px solid var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--light-gray);
+            font-weight: 600;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--white), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: var(--dark-gray);
+            border: 2px solid var(--mid-gray);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(255, 78, 0, 0.3);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-red));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(255, 78, 0, 0.3);
+        }
+
+        .service-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .service-card p {
+            color: var(--light-gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-link {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 1rem;
+        }
+
+        /* Membership Section */
+        .membership-section {
+            padding: 8rem 2rem;
+            background: var(--dark-gray);
+            position: relative;
+        }
+
+        .membership-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .membership-card {
+            background: var(--mid-gray);
+            border: 2px solid var(--mid-gray);
+            border-radius: 25px;
+            padding: 3rem;
+            position: relative;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .membership-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(255, 78, 0, 0.1), rgba(255, 230, 0, 0.05));
+            transform: scale(1.05);
+        }
+
+        .membership-badge {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-red));
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .membership-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(255, 78, 0, 0.3);
+        }
+
+        .membership-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        .membership-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .membership-period {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .membership-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .membership-features li {
+            padding: 0.8rem 0;
+            color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .membership-features li::before {
+            content: '✓';
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .membership-card .btn {
+            margin-top: auto;
+        }
+
+        /* Schedule Section */
+        .schedule-section {
+            padding: 8rem 2rem;
+        }
+
+        .schedule-table {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--mid-gray);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+        }
+
+        .schedule-header {
+            display: grid;
+            grid-template-columns: 150px repeat(7, 1fr);
+            background: linear-gradient(135deg, var(--primary), var(--accent-red));
+            padding: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .schedule-row {
+            display: grid;
+            grid-template-columns: 150px repeat(7, 1fr);
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .schedule-row:hover {
+            background: rgba(255, 78, 0, 0.1);
+        }
+
+        .schedule-time {
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .schedule-class {
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .class-yoga { background: rgba(255, 230, 0, 0.2); border-radius: 10px; }
+        .class-hiit { background: rgba(255, 78, 0, 0.2); border-radius: 10px; }
+        .class-strength { background: rgba(255, 0, 51, 0.2); border-radius: 10px; }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 8rem 2rem;
+            background: var(--dark-gray);
+        }
+
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            height: 350px;
+            background: var(--mid-gray);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 78, 0, 0.4);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 78, 0, 0.3), rgba(255, 230, 0, 0.3));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 8rem 2rem;
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-red));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-details p {
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+
+        .contact-details a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--secondary);
+        }
+
+        .contact-form {
+            background: var(--mid-gray);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 2px solid var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark);
+            border: 2px solid var(--mid-gray);
+            border-radius: 10px;
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 78, 0, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 4rem 2rem 2rem;
+            border-top: 3px solid var(--primary);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--mid-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent-red));
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--mid-gray);
+            text-align: center;
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-size: 1.5rem;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 78, 0, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 85px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.98);
+                width: 100%;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                transition: left 0.3s ease;
+                backdrop-filter: blur(20px);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .language-selector {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-header,
+            .schedule-row {
+                display: none;
+            }
+
+            .schedule-table {
+                padding: 2rem;
+            }
+
+            .schedule-table::after {
+                content: 'Mobil versiya uchun grafik tez orada!';
+                display: block;
+                text-align: center;
+                color: var(--light-gray);
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .services-grid,
+            .membership-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">IRONPULSE</a>
+            <ul class="nav-links">
+                <li><a href="#home" data-key="nav_home">BOSH SAHIFA</a></li>
+                <li><a href="#services" data-key="nav_services">XIZMATLAR</a></li>
+                <li><a href="#membership" data-key="nav_membership">A'ZOLIK</a></li>
+                <li><a href="#schedule" data-key="nav_schedule">JADVAL</a></li>
+                <li><a href="#contact" class="nav-cta" data-key="nav_contact">BOG'LANISH</a></li>
+                <div class="language-selector">
+                    <button class="lang-btn active" onclick="changeLanguage('uz')">UZ</button>
+                    <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
+                    <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+                </div>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge" data-key="hero_badge">🔥 Hozir Qo'shiling - Birinchi Oy 50% Chegirma</div>
+            <h1 data-key="hero_title">KUCHINGIZNI<br>KASHF ETING</h1>
+            <p class="hero-subtitle" data-key="hero_subtitle">
+                IronPulse'da siz o'zingizning eng yaxshi versiyangizga aylanasiz. 
+                Professional trenerlar, zamonaviy uskunalar va motivatsiya bilan to'la muhit.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#membership" class="btn btn-primary" data-key="hero_trial">BEPUL SINOV</a>
+                <a href="#contact" class="btn btn-secondary" data-key="hero_contact">BOG'LANISH</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label" data-key="stat_members">Faol A'zolar</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label" data-key="stat_trainers">Professional Trenerlar</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label" data-key="stat_classes">Haftalik Mashg'ulotlar</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label" data-key="stat_open">Ochiq</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="section-header">
+            <h2 class="section-title" data-key="services_title">BIZNING XIZMATLAR</h2>
+            <p class="section-subtitle" data-key="services_subtitle">
+                Har bir maqsad uchun maxsus dastur. Professional nazorat ostida o'z natijalatingizga erishing.
+            </p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">💪</div>
+                <h3 data-key="service1_title">KUCH MASHQLARI</h3>
+                <p data-key="service1_desc">Zamonaviy uskunalar bilan mushak massasini oshiring va kuchingizni rivojlantiring.</p>
+                <a href="#" class="service-link" data-key="learn_more">Ko'proq →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏃</div>
+                <h3 data-key="service2_title">KARDIO ZONASI</h3>
+                <p data-key="service2_desc">Yurak-qon tomir tizimini mustahkamlang va chidamlilikni oshiring.</p>
+                <a href="#" class="service-link" data-key="learn_more">Ko'proq →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧘</div>
+                <h3 data-key="service3_title">YOGA & PILATES</h3>
+                <p data-key="service3_desc">Moslashuvchanlikni oshiring, stressni kamaytiring va ichki tinchlikni toping.</p>
+                <a href="#" class="service-link" data-key="learn_more">Ko'proq →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🥊</div>
+                <h3 data-key="service4_title">BOKS & KICKBOXING</h3>
+                <p data-key="service4_desc">Energiyani yo'naltiring, koordinatsiyani yaxshilang va o'zingizni himoya qilishni o'rganing.</p>
+                <a href="#" class="service-link" data-key="learn_more">Ko'proq →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3 data-key="service5_title">SHAXSIY TRENING</h3>
+                <p data-key="service5_desc">Individual dastur va doimiy nazorat bilan maksimal natijaga erishing.</p>
+                <a href="#" class="service-link" data-key="learn_more">Ko'proq →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🍎</div>
+                <h3 data-key="service6_title">OVQATLANISH MASLAHATI</h3>
+                <p data-key="service6_desc">Professional nutritsionistdan shaxsiy ovqatlanish rejasini oling.</p>
+                <a href="#" class="service-link" data-key="learn_more">Ko'proq →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Section -->
+    <section class="membership-section" id="membership">
+        <div class="section-header">
+            <h2 class="section-title" data-key="membership_title">A'ZOLIK REJALARI</h2>
+            <p class="section-subtitle" data-key="membership_subtitle">
+                O'zingizga mos rejani tanlang va bugundan o'zgarishlarni boshlang.
+            </p>
+        </div>
+        <div class="membership-grid">
+            <div class="membership-card">
+                <h3 class="membership-name" data-key="plan1_name">BOSHLANG'ICH</h3>
+                <div class="membership-price">299K</div>
+                <div class="membership-period" data-key="per_month">oyiga</div>
+                <ul class="membership-features">
+                    <li data-key="plan1_feat1">Gym kirish (6:00 - 22:00)</li>
+                    <li data-key="plan1_feat2">Barcha uskunalardan foydalanish</li>
+                    <li data-key="plan1_feat3">Kiyim almashish xonasi</li>
+                    <li data-key="plan1_feat4">Dush</li>
+                    <li data-key="plan1_feat5">Bepul WiFi</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary" style="width: 100%;" data-key="choose_plan">TANLASH</a>
+            </div>
+
+            <div class="membership-card featured">
+                <div class="membership-badge" data-key="most_popular">ENG MASHHUR</div>
+                <h3 class="membership-name" data-key="plan2_name">PREMIUM</h3>
+                <div class="membership-price">499K</div>
+                <div class="membership-period" data-key="per_month">oyiga</div>
+                <ul class="membership-features">
+                    <li data-key="plan2_feat1">24/7 kirish</li>
+                    <li data-key="plan2_feat2">Barcha guruh mashg'ulotlari</li>
+                    <li data-key="plan2_feat3">Sauna & Bug'lanish xonasi</li>
+                    <li data-key="plan2_feat4">Shaxsiy shkafcha</li>
+                    <li data-key="plan2_feat5">2 ta shaxsiy trening/oyiga</li>
+                    <li data-key="plan2_feat6">Nutrition konsultatsiya</li>
+                    <li data-key="plan2_feat7">Bepul sport ichimlik</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary" style="width: 100%;" data-key="choose_plan">TANLASH</a>
+            </div>
+
+            <div class="membership-card">
+                <h3 class="membership-name" data-key="plan3_name">VIP</h3>
+                <div class="membership-price">899K</div>
+                <div class="membership-period" data-key="per_month">oyiga</div>
+                <ul class="membership-features">
+                    <li data-key="plan3_feat1">Premium'dagi hamma narsa</li>
+                    <li data-key="plan3_feat2">8 ta shaxsiy trening/oyiga</li>
+                    <li data-key="plan3_feat3">Shaxsiy dastur</li>
+                    <li data-key="plan3_feat4">Shaxsiy nutritsionist</li>
+                    <li data-key="plan3_feat5">VIP kiyim almashish xonasi</li>
+                    <li data-key="plan3_feat6">Spa xizmatlari</li>
+                    <li data-key="plan3_feat7">Priority support</li>
+                    <li data-key="plan3_feat8">Mehmon keltirish (2 marta/oy)</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary" style="width: 100%;" data-key="choose_plan">TANLASH</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="schedule-section" id="schedule">
+        <div class="section-header">
+            <h2 class="section-title" data-key="schedule_title">MASHG'ULOTLAR JADVALI</h2>
+            <p class="section-subtitle" data-key="schedule_subtitle">
+                O'zingizga qulay vaqtni tanlang va bugunoq boshlang.
+            </p>
+        </div>
+        <div class="schedule-table">
+            <div class="schedule-header">
+                <div data-key="time">VAQT</div>
+                <div data-key="monday">DUSHANBA</div>
+                <div data-key="tuesday">SESHANBA</div>
+                <div data-key="wednesday">CHORSHANBA</div>
+                <div data-key="thursday">PAYSHANBA</div>
+                <div data-key="friday">JUMA</div>
+                <div data-key="saturday">SHANBA</div>
+                <div data-key="sunday">YAKSHANBA</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-time">07:00</div>
+                <div class="schedule-class class-yoga">Yoga</div>
+                <div class="schedule-class class-hiit">HIIT</div>
+                <div class="schedule-class class-yoga">Yoga</div>
+                <div class="schedule-class class-hiit">HIIT</div>
+                <div class="schedule-class class-yoga">Yoga</div>
+                <div class="schedule-class class-strength" data-key="strength">Kuch</div>
+                <div class="schedule-class">-</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-time">10:00</div>
+                <div class="schedule-class class-strength" data-key="strength">Kuch</div>
+                <div class="schedule-class class-yoga">Pilates</div>
+                <div class="schedule-class class-strength" data-key="strength">Kuch</div>
+                <div class="schedule-class class-yoga">Pilates</div>
+                <div class="schedule-class class-strength" data-key="strength">Kuch</div>
+                <div class="schedule-class class-hiit">HIIT</div>
+                <div class="schedule-class class-yoga">Yoga</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-time">18:00</div>
+                <div class="schedule-class class-hiit">HIIT</div>
+                <div class="schedule-class class-strength" data-key="boxing">Boks</div>
+                <div class="schedule-class class-hiit">HIIT</div>
+                <div class="schedule-class class-strength" data-key="boxing">Boks</div>
+                <div class="schedule-class class-hiit">HIIT</div>
+                <div class="schedule-class class-yoga">Yoga</div>
+                <div class="schedule-class">-</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-time">20:00</div>
+                <div class="schedule-class class-strength" data-key="strength">Kuch</div>
+                <div class="schedule-class class-hiit" data-key="cardio">Kardio</div>
+                <div class="schedule-class class-strength" data-key="strength">Kuch</div>
+                <div class="schedule-class class-hiit" data-key="cardio">Kardio</div>
+                <div class="schedule-class class-strength" data-key="strength">Kuch</div>
+                <div class="schedule-class class-hiit">HIIT</div>
+                <div class="schedule-class">-</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="section-header">
+            <h2 class="section-title" data-key="gallery_title">BIZNING ZALIMIZ</h2>
+            <p class="section-subtitle" data-key="gallery_subtitle">
+                Zamonaviy uskunalar va shinam muhit bilan tanishing.
+            </p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🏋️</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">💪</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🏃</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🥊</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🧘</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🎯</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="section-header">
+            <h2 class="section-title" data-key="contact_title">BOG'LANISH</h2>
+            <p class="section-subtitle" data-key="contact_subtitle">
+                Savollar bormi? Biz bilan bog'laning yoki to'g'ridan-to'g'ri tashrif buyuring!
+            </p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h3 data-key="address_title">MANZIL</h3>
+                        <p data-key="address_text">Amir Temur ko'chasi 123<br>Toshkent, O'zbekiston 100000</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h3 data-key="phone_title">TELEFON</h3>
+                        <p>
+                            <a href="tel:+998901234567">+998 90 123 45 67</a><br>
+                            <a href="tel:+998901234568">+998 90 123 45 68</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <div class="contact-details">
+                        <h3 data-key="hours_title">ISH VAQTI</h3>
+                        <p data-key="hours_text">
+                            Dushanba - Juma: 24/7<br>
+                            Shanba - Yakshanba: 24/7
+                        </p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h3>EMAIL</h3>
+                        <p>
+                            <a href="mailto:info@ironpulse.uz">info@ironpulse.uz</a><br>
+                            <a href="mailto:support@ironpulse.uz">support@ironpulse.uz</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label data-key="form_name">ISMINGIZ</label>
+                        <input type="text" data-key-placeholder="form_name_placeholder" placeholder="Ismingizni kiriting" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-key="form_phone">TELEFON</label>
+                        <input type="tel" placeholder="+998 90 123 45 67" required>
+                    </div>
+                    <div class="form-group">
+                        <label>EMAIL</label>
+                        <input type="email" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-key="form_message">XABAR</label>
+                        <textarea data-key-placeholder="form_message_placeholder" placeholder="Xabaringizni yozing..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;" data-key="form_submit">YUBORISH</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>IRONPULSE</h3>
+                <p style="color: var(--light-gray); line-height: 1.8;" data-key="footer_desc">
+                    Toshkentdagi eng zamonaviy sport zali. 
+                    Professional trenerlar va yuqori sifatli xizmat.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📱</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">👍</a>
+                    <a href="#" class="social-link">▶️</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3 data-key="footer_quick">TEZKOR HAVOLALAR</h3>
+                <ul>
+                    <li><a href="#home" data-key="nav_home">Bosh sahifa</a></li>
+                    <li><a href="#services" data-key="nav_services">Xizmatlar</a></li>
+                    <li><a href="#membership" data-key="nav_membership">A'zolik</a></li>
+                    <li><a href="#schedule" data-key="nav_schedule">Jadval</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-key="footer_services">XIZMATLAR</h3>
+                <ul>
+                    <li><a href="#" data-key="footer_strength">Kuch mashqlari</a></li>
+                    <li><a href="#" data-key="footer_cardio">Kardio zonasi</a></li>
+                    <li><a href="#" data-key="footer_yoga">Yoga & Pilates</a></li>
+                    <li><a href="#" data-key="footer_boxing">Boks</a></li>
+                    <li><a href="#" data-key="footer_personal">Shaxsiy trening</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-key="footer_legal">QONUNIY</h3>
+                <ul>
+                    <li><a href="#" data-key="footer_terms">Foydalanish shartlari</a></li>
+                    <li><a href="#" data-key="footer_privacy">Maxfiylik siyosati</a></li>
+                    <li><a href="#" data-key="footer_contract">Shartnoma</a></li>
+                    <li><a href="#" data-key="footer_faq">Ko'p so'raladigan savollar</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-key="footer_copyright">&copy; 2026 IronPulse Gym. Barcha huquqlar himoyalangan. | O'zingizning eng yaxshi versiyangiz bo'ling 💪</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <div class="scroll-top" onclick="scrollToTop()">↑</div>
+
+    <script>
+        // Translation data
+        const translations = {
+            uz: {
+                nav_home: "BOSH SAHIFA",
+                nav_services: "XIZMATLAR",
+                nav_membership: "A'ZOLIK",
+                nav_schedule: "JADVAL",
+                nav_contact: "BOG'LANISH",
+                hero_badge: "🔥 Hozir Qo'shiling - Birinchi Oy 50% Chegirma",
+                hero_title: "KUCHINGIZNI<br>KASHF ETING",
+                hero_subtitle: "IronPulse'da siz o'zingizning eng yaxshi versiyangizga aylanasiz. Professional trenerlar, zamonaviy uskunalar va motivatsiya bilan to'la muhit.",
+                hero_trial: "BEPUL SINOV",
+                hero_contact: "BOG'LANISH",
+                stat_members: "Faol A'zolar",
+                stat_trainers: "Professional Trenerlar",
+                stat_classes: "Haftalik Mashg'ulotlar",
+                stat_open: "Ochiq",
+                services_title: "BIZNING XIZMATLAR",
+                services_subtitle: "Har bir maqsad uchun maxsus dastur. Professional nazorat ostida o'z natijalatingizga erishing.",
+                service1_title: "KUCH MASHQLARI",
+                service1_desc: "Zamonaviy uskunalar bilan mushak massasini oshiring va kuchingizni rivojlantiring.",
+                service2_title: "KARDIO ZONASI",
+                service2_desc: "Yurak-qon tomir tizimini mustahkamlang va chidamlilikni oshiring.",
+                service3_title: "YOGA & PILATES",
+                service3_desc: "Moslashuvchanlikni oshiring, stressni kamaytiring va ichki tinchlikni toping.",
+                service4_title: "BOKS & KICKBOXING",
+                service4_desc: "Energiyani yo'naltiring, koordinatsiyani yaxshilang va o'zingizni himoya qilishni o'rganing.",
+                service5_title: "SHAXSIY TRENING",
+                service5_desc: "Individual dastur va doimiy nazorat bilan maksimal natijaga erishing.",
+                service6_title: "OVQATLANISH MASLAHATI",
+                service6_desc: "Professional nutritsionistdan shaxsiy ovqatlanish rejasini oling.",
+                learn_more: "Ko'proq →",
+                membership_title: "A'ZOLIK REJALARI",
+                membership_subtitle: "O'zingizga mos rejani tanlang va bugundan o'zgarishlarni boshlang.",
+                plan1_name: "BOSHLANG'ICH",
+                plan1_feat1: "Gym kirish (6:00 - 22:00)",
+                plan1_feat2: "Barcha uskunalardan foydalanish",
+                plan1_feat3: "Kiyim almashish xonasi",
+                plan1_feat4: "Dush",
+                plan1_feat5: "Bepul WiFi",
+                plan2_name: "PREMIUM",
+                plan2_feat1: "24/7 kirish",
+                plan2_feat2: "Barcha guruh mashg'ulotlari",
+                plan2_feat3: "Sauna & Bug'lanish xonasi",
+                plan2_feat4: "Shaxsiy shkafcha",
+                plan2_feat5: "2 ta shaxsiy trening/oyiga",
+                plan2_feat6: "Nutrition konsultatsiya",
+                plan2_feat7: "Bepul sport ichimlik",
+                plan3_name: "VIP",
+                plan3_feat1: "Premium'dagi hamma narsa",
+                plan3_feat2: "8 ta shaxsiy trening/oyiga",
+                plan3_feat3: "Shaxsiy dastur",
+                plan3_feat4: "Shaxsiy nutritsionist",
+                plan3_feat5: "VIP kiyim almashish xonasi",
+                plan3_feat6: "Spa xizmatlari",
+                plan3_feat7: "Priority support",
+                plan3_feat8: "Mehmon keltirish (2 marta/oy)",
+                most_popular: "ENG MASHHUR",
+                per_month: "oyiga",
+                choose_plan: "TANLASH",
+                schedule_title: "MASHG'ULOTLAR JADVALI",
+                schedule_subtitle: "O'zingizga qulay vaqtni tanlang va bugunoq boshlang.",
+                time: "VAQT",
+                monday: "DUSHANBA",
+                tuesday: "SESHANBA",
+                wednesday: "CHORSHANBA",
+                thursday: "PAYSHANBA",
+                friday: "JUMA",
+                saturday: "SHANBA",
+                sunday: "YAKSHANBA",
+                strength: "Kuch",
+                boxing: "Boks",
+                cardio: "Kardio",
+                gallery_title: "BIZNING ZALIMIZ",
+                gallery_subtitle: "Zamonaviy uskunalar va shinam muhit bilan tanishing.",
+                contact_title: "BOG'LANISH",
+                contact_subtitle: "Savollar bormi? Biz bilan bog'laning yoki to'g'ridan-to'g'ri tashrif buyuring!",
+                address_title: "MANZIL",
+                address_text: "Amir Temur ko'chasi 123<br>Toshkent, O'zbekiston 100000",
+                phone_title: "TELEFON",
+                hours_title: "ISH VAQTI",
+                hours_text: "Dushanba - Juma: 24/7<br>Shanba - Yakshanba: 24/7",
+                form_name: "ISMINGIZ",
+                form_name_placeholder: "Ismingizni kiriting",
+                form_phone: "TELEFON",
+                form_message: "XABAR",
+                form_message_placeholder: "Xabaringizni yozing...",
+                form_submit: "YUBORISH",
+                footer_desc: "Toshkentdagi eng zamonaviy sport zali. Professional trenerlar va yuqori sifatli xizmat.",
+                footer_quick: "TEZKOR HAVOLALAR",
+                footer_services: "XIZMATLAR",
+                footer_strength: "Kuch mashqlari",
+                footer_cardio: "Kardio zonasi",
+                footer_yoga: "Yoga & Pilates",
+                footer_boxing: "Boks",
+                footer_personal: "Shaxsiy trening",
+                footer_legal: "QONUNIY",
+                footer_terms: "Foydalanish shartlari",
+                footer_privacy: "Maxfiylik siyosati",
+                footer_contract: "Shartnoma",
+                footer_faq: "Ko'p so'raladigan savollar",
+                footer_copyright: "© 2026 IronPulse Gym. Barcha huquqlar himoyalangan. | O'zingizning eng yaxshi versiyangiz bo'ling 💪"
+            },
+            ru: {
+                nav_home: "ГЛАВНАЯ",
+                nav_services: "УСЛУГИ",
+                nav_membership: "ЧЛЕНСТВО",
+                nav_schedule: "РАСПИСАНИЕ",
+                nav_contact: "КОНТАКТЫ",
+                hero_badge: "🔥 Присоединяйтесь сейчас - Скидка 50% на первый месяц",
+                hero_title: "ОТКРОЙТЕ<br>СВОЮ СИЛУ",
+                hero_subtitle: "В IronPulse вы станете лучшей версией себя. Профессиональные тренеры, современное оборудование и мотивирующая атмосфера.",
+                hero_trial: "БЕСПЛАТНАЯ ПРОБНАЯ",
+                hero_contact: "СВЯЗАТЬСЯ",
+                stat_members: "Активных Членов",
+                stat_trainers: "Профессиональных Тренеров",
+                stat_classes: "Еженедельных Занятий",
+                stat_open: "Открыто",
+                services_title: "НАШИ УСЛУГИ",
+                services_subtitle: "Специальная программа для каждой цели. Достигайте результатов под профессиональным контролем.",
+                service1_title: "СИЛОВЫЕ ТРЕНИРОВКИ",
+                service1_desc: "Увеличьте мышечную массу и развивайте силу с современным оборудованием.",
+                service2_title: "КАРДИО ЗОНА",
+                service2_desc: "Укрепите сердечно-сосудистую систему и повысьте выносливость.",
+                service3_title: "ЙОГА & ПИЛАТЕС",
+                service3_desc: "Повысьте гибкость, снизьте стресс и обретите внутреннее спокойствие.",
+                service4_title: "БОКС & КИКБОКСИНГ",
+                service4_desc: "Направьте энергию, улучшите координацию и научитесь защищаться.",
+                service5_title: "ПЕРСОНАЛЬНЫЙ ТРЕНИНГ",
+                service5_desc: "Достигайте максимальных результатов с индивидуальной программой и постоянным контролем.",
+                service6_title: "КОНСУЛЬТАЦИЯ ПО ПИТАНИЮ",
+                service6_desc: "Получите персональный план питания от профессионального нутрициониста.",
+                learn_more: "Подробнее →",
+                membership_title: "ПЛАНЫ ЧЛЕНСТВА",
+                membership_subtitle: "Выберите подходящий план и начните изменения сегодня.",
+                plan1_name: "НАЧАЛЬНЫЙ",
+                plan1_feat1: "Доступ в зал (6:00 - 22:00)",
+                plan1_feat2: "Использование всего оборудования",
+                plan1_feat3: "Раздевалка",
+                plan1_feat4: "Душ",
+                plan1_feat5: "Бесплатный WiFi",
+                plan2_name: "ПРЕМИУМ",
+                plan2_feat1: "Доступ 24/7",
+                plan2_feat2: "Все групповые занятия",
+                plan2_feat3: "Сауна и парная",
+                plan2_feat4: "Личный шкафчик",
+                plan2_feat5: "2 персональные тренировки/месяц",
+                plan2_feat6: "Консультация по питанию",
+                plan2_feat7: "Бесплатные спортивные напитки",
+                plan3_name: "VIP",
+                plan3_feat1: "Всё из Premium",
+                plan3_feat2: "8 персональных тренировок/месяц",
+                plan3_feat3: "Индивидуальная программа",
+                plan3_feat4: "Личный нутрициолог",
+                plan3_feat5: "VIP раздевалка",
+                plan3_feat6: "СПА услуги",
+                plan3_feat7: "Приоритетная поддержка",
+                plan3_feat8: "Гостевые визиты (2 раза/месяц)",
+                most_popular: "САМЫЙ ПОПУЛЯРНЫЙ",
+                per_month: "в месяц",
+                choose_plan: "ВЫБРАТЬ",
+                schedule_title: "РАСПИСАНИЕ ЗАНЯТИЙ",
+                schedule_subtitle: "Выберите удобное время и начните сегодня.",
+                time: "ВРЕМЯ",
+                monday: "ПОНЕДЕЛЬНИК",
+                tuesday: "ВТОРНИК",
+                wednesday: "СРЕДА",
+                thursday: "ЧЕТВЕРГ",
+                friday: "ПЯТНИЦА",
+                saturday: "СУББОТА",
+                sunday: "ВОСКРЕСЕНЬЕ",
+                strength: "Сила",
+                boxing: "Бокс",
+                cardio: "Кардио",
+                gallery_title: "НАШ ЗАЛ",
+                gallery_subtitle: "Познакомьтесь с современным оборудованием и комфортной атмосферой.",
+                contact_title: "КОНТАКТЫ",
+                contact_subtitle: "Есть вопросы? Свяжитесь с нами или посетите нас напрямую!",
+                address_title: "АДРЕС",
+                address_text: "ул. Амира Темура 123<br>Ташкент, Узбекистан 100000",
+                phone_title: "ТЕЛЕФОН",
+                hours_title: "ЧАСЫ РАБОТЫ",
+                hours_text: "Понедельник - Пятница: 24/7<br>Суббота - Воскресенье: 24/7",
+                form_name: "ВАШЕ ИМЯ",
+                form_name_placeholder: "Введите ваше имя",
+                form_phone: "ТЕЛЕФОН",
+                form_message: "СООБЩЕНИЕ",
+                form_message_placeholder: "Напишите ваше сообщение...",
+                form_submit: "ОТПРАВИТЬ",
+                footer_desc: "Самый современный фитнес-клуб в Ташкенте. Профессиональные тренеры и высококачественный сервис.",
+                footer_quick: "БЫСТРЫЕ ССЫЛКИ",
+                footer_services: "УСЛУГИ",
+                footer_strength: "Силовые тренировки",
+                footer_cardio: "Кардио зона",
+                footer_yoga: "Йога & Пилатес",
+                footer_boxing: "Бокс",
+                footer_personal: "Персональный тренинг",
+                footer_legal: "ЮРИДИЧЕСКОЕ",
+                footer_terms: "Условия использования",
+                footer_privacy: "Политика конфиденциальности",
+                footer_contract: "Договор",
+                footer_faq: "Часто задаваемые вопросы",
+                footer_copyright: "© 2026 IronPulse Gym. Все права защищены. | Станьте лучшей версией себя 💪"
+            },
+            en: {
+                nav_home: "HOME",
+                nav_services: "SERVICES",
+                nav_membership: "MEMBERSHIP",
+                nav_schedule: "SCHEDULE",
+                nav_contact: "CONTACT",
+                hero_badge: "🔥 Join Now - 50% Off First Month",
+                hero_title: "UNLEASH<br>YOUR POWER",
+                hero_subtitle: "At IronPulse, you'll become the best version of yourself. Professional trainers, modern equipment, and a motivating environment.",
+                hero_trial: "FREE TRIAL",
+                hero_contact: "CONTACT US",
+                stat_members: "Active Members",
+                stat_trainers: "Professional Trainers",
+                stat_classes: "Weekly Classes",
+                stat_open: "Open",
+                services_title: "OUR SERVICES",
+                services_subtitle: "Special program for every goal. Achieve your results under professional supervision.",
+                service1_title: "STRENGTH TRAINING",
+                service1_desc: "Build muscle mass and develop strength with modern equipment.",
+                service2_title: "CARDIO ZONE",
+                service2_desc: "Strengthen your cardiovascular system and increase endurance.",
+                service3_title: "YOGA & PILATES",
+                service3_desc: "Improve flexibility, reduce stress, and find inner peace.",
+                service4_title: "BOXING & KICKBOXING",
+                service4_desc: "Channel your energy, improve coordination, and learn self-defense.",
+                service5_title: "PERSONAL TRAINING",
+                service5_desc: "Achieve maximum results with an individual program and constant supervision.",
+                service6_title: "NUTRITION CONSULTATION",
+                service6_desc: "Get a personalized nutrition plan from a professional nutritionist.",
+                learn_more: "Learn More →",
+                membership_title: "MEMBERSHIP PLANS",
+                membership_subtitle: "Choose the right plan and start your transformation today.",
+                plan1_name: "STARTER",
+                plan1_feat1: "Gym access (6:00 AM - 10:00 PM)",
+                plan1_feat2: "All equipment usage",
+                plan1_feat3: "Locker room",
+                plan1_feat4: "Shower",
+                plan1_feat5: "Free WiFi",
+                plan2_name: "PREMIUM",
+                plan2_feat1: "24/7 access",
+                plan2_feat2: "All group classes",
+                plan2_feat3: "Sauna & Steam room",
+                plan2_feat4: "Personal locker",
+                plan2_feat5: "2 personal training sessions/month",
+                plan2_feat6: "Nutrition consultation",
+                plan2_feat7: "Free sports drinks",
+                plan3_name: "VIP",
+                plan3_feat1: "Everything in Premium",
+                plan3_feat2: "8 personal training sessions/month",
+                plan3_feat3: "Personalized program",
+                plan3_feat4: "Personal nutritionist",
+                plan3_feat5: "VIP locker room",
+                plan3_feat6: "Spa services",
+                plan3_feat7: "Priority support",
+                plan3_feat8: "Guest passes (2 times/month)",
+                most_popular: "MOST POPULAR",
+                per_month: "per month",
+                choose_plan: "CHOOSE",
+                schedule_title: "CLASS SCHEDULE",
+                schedule_subtitle: "Choose a convenient time and start today.",
+                time: "TIME",
+                monday: "MONDAY",
+                tuesday: "TUESDAY",
+                wednesday: "WEDNESDAY",
+                thursday: "THURSDAY",
+                friday: "FRIDAY",
+                saturday: "SATURDAY",
+                sunday: "SUNDAY",
+                strength: "Strength",
+                boxing: "Boxing",
+                cardio: "Cardio",
+                gallery_title: "OUR GYM",
+                gallery_subtitle: "Experience modern equipment and a comfortable environment.",
+                contact_title: "CONTACT US",
+                contact_subtitle: "Have questions? Contact us or visit us directly!",
+                address_title: "ADDRESS",
+                address_text: "Amir Temur Street 123<br>Tashkent, Uzbekistan 100000",
+                phone_title: "PHONE",
+                hours_title: "HOURS",
+                hours_text: "Monday - Friday: 24/7<br>Saturday - Sunday: 24/7",
+                form_name: "YOUR NAME",
+                form_name_placeholder: "Enter your name",
+                form_phone: "PHONE",
+                form_message: "MESSAGE",
+                form_message_placeholder: "Write your message...",
+                form_submit: "SEND",
+                footer_desc: "The most modern fitness club in Tashkent. Professional trainers and high-quality service.",
+                footer_quick: "QUICK LINKS",
+                footer_services: "SERVICES",
+                footer_strength: "Strength training",
+                footer_cardio: "Cardio zone",
+                footer_yoga: "Yoga & Pilates",
+                footer_boxing: "Boxing",
+                footer_personal: "Personal training",
+                footer_legal: "LEGAL",
+                footer_terms: "Terms of Service",
+                footer_privacy: "Privacy Policy",
+                footer_contract: "Contract",
+                footer_faq: "FAQ",
+                footer_copyright: "© 2026 IronPulse Gym. All rights reserved. | Be your best self 💪"
+            }
+        };
+
+        let currentLang = 'uz';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-key-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-key-placeholder');
+                if (translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+
+            // Show scroll to top button
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.scrollY > 500) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Form submission
+        document.querySelector('.contact-form form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const messages = {
+                uz: 'Rahmat! Tez orada siz bilan bog\'lanamiz! 💪',
+                ru: 'Спасибо! Мы скоро свяжемся с вами! 💪',
+                en: 'Thank you! We will contact you soon! 💪'
+            };
+            alert(messages[currentLang]);
+            e.target.reset();
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe cards for animation
+        document.querySelectorAll('.service-card, .membership-card, .gallery-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
